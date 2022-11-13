@@ -18,13 +18,15 @@ priceData = pd.read_csv('PriceData.csv', header=None)
 prices = priceData.iloc[:,1:2].values
 print(prices)
 
-# for url in urls:
-#     page = requests.get(url, headers=headers)
-#     soup = BeautifulSoup(page.content, 'html.parser')
+for url in urls:
+    page = requests.get(url, headers=headers)
+    soup = BeautifulSoup(page.content, 'html.parser')
 
-#     productTitle = soup.find_all(id="productTitle")[0].text
-#     productTitle = re.split(', | -', productTitle)
-#     productTitle = productTitle[0]
+    productTitle = soup.find_all(id="productTitle")[0].text
+    productTitle = re.split(', | -', productTitle)
+    productTitle = productTitle[0]
     
-#     price = soup.find_all(class_="a-offscreen")[0].text
-#     print(productTitle,": ", price)
+    price = soup.find_all(class_="a-offscreen")[0].text
+    print(productTitle,": ", price)
+    
+    
