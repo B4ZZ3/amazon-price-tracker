@@ -2,6 +2,7 @@
 
 import requests
 import re
+import pandas as pd
 
 from lxml import etree as et
 from bs4 import BeautifulSoup
@@ -13,13 +14,17 @@ urls = ["https://www.amazon.de/Logitech-Z906-3D-Stereo-Lautsprecher-5-1-Dolby-Su
 
 headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0"}
 
-for url in urls:
-    page = requests.get(url, headers=headers)
-    soup = BeautifulSoup(page.content, 'html.parser')
+priceData = pd.read_csv('PriceData.csv', header=None)
+prices = priceData.iloc[:,1:2].values
+print(prices)
 
-    productTitle = soup.find_all(id="productTitle")[0].text
-    productTitle = re.split(', | -', productTitle)
-    productTitle = productTitle[0]
+# for url in urls:
+#     page = requests.get(url, headers=headers)
+#     soup = BeautifulSoup(page.content, 'html.parser')
+
+#     productTitle = soup.find_all(id="productTitle")[0].text
+#     productTitle = re.split(', | -', productTitle)
+#     productTitle = productTitle[0]
     
-    price = soup.find_all(class_="a-offscreen")[0].text
-    print(productTitle,": ", price)
+#     price = soup.find_all(class_="a-offscreen")[0].text
+#     print(productTitle,": ", price)
